@@ -17,7 +17,11 @@ function App() {
 
   // useMemo will only recompute the memoized value when one of the deps has changed.
 
-  const socket = useMemo(() => io("http://localhost:3000"), []);
+  // cookie accept krne ke liye
+
+  const socket = useMemo(() => io("http://localhost:3000", {
+    withCredentials: true
+  }), []);
 
   // isse socket sirf component mount hone pr / page refresh hone pe  hi create hoga
 
