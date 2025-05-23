@@ -38,6 +38,8 @@ function App() {
   const joinRoomHandler = (e) => {
     e.preventDefault() // jaise hi event trigger ho refresh na ho page
     
+    console.log("Joining room:", roomName);
+    
     socket.emit("join-room",roomName)
     setRoomName("")
   }
@@ -105,7 +107,8 @@ function App() {
 
         id="outlined-basic" 
         label="Room Name" 
-        variant="outlined"/>
+        variant="outlined"
+        />
 
 
         <Button type="submit" variant="contained" color="primary">
@@ -176,6 +179,8 @@ export default App;
 
 
 
-// join room button pe ek event trigger krna hai , naya room create krna hai and kaise krenge let we'll figurev it out
+// join room button pe ek event trigger krna hai , naya room create krna hai and kaise krenge let we'll figure it out ---> joinRoomHandler function
+
+
 
 

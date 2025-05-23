@@ -15,10 +15,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
     credentials: true,
   }, // similar to CORS package
-
 }); // Socket ka instance create kr liya  --> io : server/circuit
-
-
 
 // cors ka package jaise API mein use krna hai , toh humein middleware pass krna padega
 
@@ -30,67 +27,60 @@ app.use(
   })
 );
 
-
-
 app.get("/", (req, res) => {
   res.send("hello ji");
 });
 
-
-
-
 // Adds the listener function as an event listener --> jaise hi client side pe koi bhi socket connect hoga toh console hoga
 
-
 io.on("connection", (socket) => {
-
   console.log("User connected", socket.id);
 
-  // socket.emit("greeting","Welcome to the server")
-  // socket.broadcast.emit("greeting",` ${socket.id} join the server `,)  // Emits to this client. 
+  /* 
 
+  ---> Emits to this client. 
 
-  // jaise message event trigger ho frontend se toh data milega and usko console kr rhe hai
+  socket.emit("greeting","Welcome to the server")
 
+  socket.broadcast.emit("greeting",` ${socket.id} join the server `,)  
+  
+  */
 
-  // iss method se hum data access kr skte hai backend mein , so ab humein iss message ko baaki logo ko dikhana hai woh depend krta hai scenarios pe
+  //  jaise message event trigger ho frontend se toh data milega and usko console kr rhe hai
 
+  //  iss method se hum data access kr skte hai backend mein , so ab humein iss message ko baaki logo ko dikhana hai woh depend krta hai scenarios pe
 
-  socket.on("message",({message,room}) => {
-    console.log(message,room); 
+  socket.on("message", ({ message, room }) => {
+    console.log(message, room);
 
     // to() : a room, or an array of rooms  and Targets a room when emitting.
 
-    socket.to(room).emit("recieve-message",message) 
+    socket.to(room).emit("recieve-message", message);
+  });
 
-    // and agar hum io ki jagah socket bhi likh de toh same kaam krega kyuki jab hum to() lagayenge to socket.io doesn't matter
-    
+  // and agar hum io ki jagah socket bhi likh de toh same kaam krega kyuki jab hum to() lagayenge to socket.io doesn't matter
 
-    // brodcast mein jo bhi message ek user/socket bhejega wo use nhi milega uske alawa sabko milega 
- 
+  // brodcast mein jo bhi message ek user/socket bhejega wo use nhi milega uske alawa sabko milega
 
-    // io means server/circuit jisse message saare users/sockets pe chala jayega
+  // io means server/circuit jisse message saare users/sockets pe chala jayega
 
-    socket.on("join-room",(roomName) => {
-      socket.join(roomName)
-      console.log(`User joined room ${roomName}`);
-    }) 
-    // jab hum baat kr rhe socket ki toh individual socket jisne req kri wo hi join krega room ko 
-  })
+  socket.on("join-room", (room) => {
+    socket.join(room);
+    console.log(`User joined room ${room}`);
+  });
 
-    socket.on("disconnect" , () => {
-    console.log("User Disconnected",socket.id);
-   })
+  // jab hum baat kr rhe socket ki toh individual socket jisne req kri wo hi join krega room ko
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
 });
-
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
 // app internally http server create kr rha hota hai ( naye server ka instance create hoga aise )
-
 
 /* 
 
@@ -112,4 +102,3 @@ iske liye hum use krenge rooms ka , particular room mein bhejenge message , jais
 
 
 */
-
