@@ -180,7 +180,3 @@ export default App;
 
 
 // join room button pe ek event trigger krna hai , naya room create krna hai and kaise krenge let we'll figure it out ---> joinRoomHandler function
-
-
-
-

@@ -100,5 +100,4 @@ Now we have to see ki Socket1/user1 and user3/Socket3 hi aapas mein baat krein (
 iske liye hum use krenge rooms ka , particular room mein bhejenge message , jaise ki humein pata hai , har ek socket already room mein hota hai , toh jo uski id hai ( wo room mein already hai )
 
 
-
 */
